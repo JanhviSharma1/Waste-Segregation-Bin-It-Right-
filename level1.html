@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Sorting Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            background-image: url('Assets/badbg1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .game-container {
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+        .logo-container img {
+            max-width: 100px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .bins {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .bin {
+            width: 230px;
+            border: 2px dashed #ffffff;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .bin.correct:hover {
+            background-color: #c8e6c9;
+            border-color: #4caf50;
+        }
+
+        .bin.incorrect:hover {
+            background-color: #ffcdd2;
+            border-color: #f44336;
+        }
+
+        .bin .bin-content {
+            margin-top: 10px;
+            font-size: 14px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            flex-grow: 1;
+            min-height: 0;
+        }
+
+        .items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .item {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #888;
+            font-size: 14px;
+            cursor: grab;
+            transition: transform 0.3s ease;
+        }
+
+        .item:hover {
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .score {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .fun-fact {
+            margin-top: 20px;
+            font-size: 16px;
+            font-style: italic;
+        }
+
+        .buttons-container {
+            margin-top: 20px;
+        }
+
+        .pop-up {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            text-align: center;
+        }
+
+        .pop-up h2 {
+            margin-bottom: 20px;
+        }
+
+        .pop-up button {
+            margin-top: 10px;
+        }
+
+        .pop-up .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .score {
+            margin-top: 20px;
+            font-size: 18px;
+            font-style: italic;
+            font-weight: bold;
+            color: black;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .fun-fact {
+            margin-top: 20px;
+            font-size: 18px;
+            font-style: italic;
+            font-weight: bold;
+            color: #377139;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logo-container">
+        <img src="Assets/logo.png" alt="Bin It Right Logo">
+    </div>
+    <div class="game-container">
+        <h1>Waste Sorting Game</h1>
+        <p>Drag and drop items into the correct bin!</p>
+
+        <div class="items">
+            <div class="item" draggable="true" data-type="recycling">Plastic Bottle</div>
+            <div class="item" draggable="true" data-type="compost">Banana Peel</div>
+            <div class="item" draggable="true" data-type="trash">Candy Wrapper</div>
+            <div class="item" draggable="true" data-type="recycling">Glass Bottle</div>
+            <div class="item" draggable="true" data-type="recycling">Paper Cup</div>
+            <div class="item" draggable="true" data-type="compost">Apple Core</div>
+            <div class="item" draggable="true" data-type="compost">Eggshells</div>
+            <div class="item" draggable="true" data-type="recycling">Cardboard Box</div>
+            <div class="item" draggable="true" data-type="trash">Pizza Box with Grease</div>
+            <div class="item" draggable="true" data-type="trash">Plastic Straw</div>
+            <div class="item" draggable="true" data-type="recycling">Tin Can</div>
+            <div class="item" draggable="true" data-type="compost">Tea Bag</div>
+            <div class="item" draggable="true" data-type="trash">Styrofoam Cup</div>
+        </div>
+
+        <div class="bins">
+            <div class="bin" data-type="recycling">
+                Recycling
+                <div class="bin-content" id="recycling-bin"></div>
+            </div>
+            <div class="bin" data-type="compost">
+                Compost
+                <div class="bin-content" id="compost-bin"></div>
+            </div>
+            <div class="bin" data-type="trash">
+                Trash
+                <div class="bin-content" id="trash-bin"></div>
+            </div>
+        </div>
+
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="fun-fact" id="fun-fact">Sort correctly to see fun facts!</div>
+
+        <div class="pop-up" id="pop-up">
+            <span class="close-btn" id="close-pop-up">×</span>
+            <h2>Congratulations!</h2>
+            <p>You have correctly sorted all the items!</p>
+            <button id="replay-btn-popup" class="btn btn-primary">Replay</button>
+            <button id="next-btn" class="btn btn-success">Next</button>
+        </div>
+
+        <div class="buttons-container">
+            <button id="reset-btn" class="btn btn-warning">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        let score = parseInt(localStorage.getItem('score')) || 0;
+        const funFacts = {
+            "recycling": "Recycling one aluminum can saves enough energy to power a TV for 3 hours!",
+            "compost": "Composting reduces methane emissions from landfills!",
+            "trash": "Plastic can take up to 450 years to decompose.",
+        };
+
+        const incorrectHints = {
+            "recycling": "It takes 1000+ years for plastic to decompose. Try putting it in the Recycling bin!",
+            "compost": "Do you know red worms convert biodegradable waste into compost? Try putting it in the Compost bin!",
+            "trash": "Candy wrappers often can't be recycled. Try putting it in the Trash bin!",
+        };
+
+        document.getElementById('score').textContent = score;
+
+        const items = document.querySelectorAll('.item');
+        const bins = document.querySelectorAll('.bin');
+        const funFactElement = document.getElementById('fun-fact');
+        const resetButton = document.getElementById('reset-btn');
+        const popUp = document.getElementById('pop-up');
+        const closePopUpButton = document.getElementById('close-pop-up');
+        const replayButtonPopUp = document.getElementById('replay-btn-popup');
+        const nextButton = document.getElementById('next-btn');
+
+        function checkIfSorted() {
+            return document.querySelector('.items').children.length === 0;
+        }
+
+        items.forEach(item => {
+            item.addEventListener('dragstart', () => {
+                item.classList.add('dragging');
+            });
+
+            item.addEventListener('dragend', () => {
+                item.classList.remove('dragging');
+            });
+        });
+
+        bins.forEach(bin => {
+            bin.addEventListener('dragover', event => {
+                event.preventDefault();
+                bin.classList.add('hovered');
+            });
+
+            bin.addEventListener('dragleave', () => {
+                bin.classList.remove('hovered');
+            });
+
+            bin.addEventListener('drop', event => {
+                const draggedItem = document.querySelector('.dragging');
+                const itemType = draggedItem.getAttribute('data-type');
+                const binType = bin.getAttribute('data-type');
+                const binContent = bin.querySelector('.bin-content');
+
+                if (itemType === binType) {
+                    score += 10;
+                    funFactElement.textContent = funFacts[binType];
+                    bin.classList.add('correct');
+
+                    const itemClone = draggedItem.cloneNode(true);
+                    itemClone.classList.remove('dragging');
+                    itemClone.setAttribute('draggable', 'false');
+                    binContent.appendChild(itemClone);
+
+                    draggedItem.remove();
+                } else {
+                    funFactElement.textContent = incorrectHints[binType];
+                    bin.classList.add('incorrect');
+                }
+
+                setTimeout(() => {
+                    bin.classList.remove('correct', 'incorrect');
+                }, 1000);
+
+                document.getElementById('score').textContent = score;
+                localStorage.setItem('score', score);
+
+                if (checkIfSorted()) {
+                    setTimeout(() => {
+                        document.querySelector('.game-container').classList.add('inactive');
+                        popUp.style.display = 'block';
+                    }, 500);
+                }
+
+                bin.classList.remove('hovered');
+            });
+        });
+
+        resetButton.addEventListener('click', () => {
+            localStorage.removeItem('score');
+            score = 0;
+            document.getElementById('score').textContent = score;
+
+            document.querySelectorAll('.bin-content').forEach(binContent => {
+                binContent.innerHTML = '';
+            });
+
+            document.querySelectorAll('.bin').forEach(bin => {
+                bin.classList.remove('correct', 'incorrect');
+            });
+
+            document.querySelectorAll('.item').forEach(item => {
+                item.classList.remove('dragging');
+                document.querySelector('.items').appendChild(item);
+            });
+        });
+
+        closePopUpButton.addEventListener('click', () => {
+            popUp.style.display = 'none';
+            document.querySelector('.game-container').classList.remove('inactive');
+            location.reload();
+        });
+
+        replayButtonPopUp.addEventListener('click', () => {
+            location.reload();
+        });
+
+        nextButton.addEventListener('click', () => {
+            const gameContainer = document.querySelector('.game-container');
+
+            gameContainer.style.transition = 'opacity 2s ease-out';
+            gameContainer.style.opacity = '0';
+
+            gameContainer.style.height = `${gameContainer.offsetHeight}px`;
+            gameContainer.style.width = `${gameContainer.offsetWidth}px`;
+
+            setTimeout(() => {
+                gameContainer.innerHTML = '';
+
+                document.body.style.transition = 'background 2s ease-in, background 2s ease-out';
+                document.body.style.backgroundImage = 'url("Assets/bg1.png")';
+                document.body.style.backgroundSize = 'cover';
+                document.body.style.backgroundPosition = 'center';
+
+                setTimeout(() => {
+                    window.location.href = 'educate.html';
+                }, 5000);
+            }, 2000);
+        });
+
+
+    </script>
+</body>
+
+</html>

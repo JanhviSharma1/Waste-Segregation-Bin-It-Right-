@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/ca79adee43dfd2eb108269be7a4a7ded?family=Core+Bandi+Face+W01+Regular"
+        rel="stylesheet">
+    <link rel="shortcut icon" type="image/jpg" href="Assets/logo.png" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('Assets/bg5.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        @font-face {
+            font-family: 'DistroBev';
+            src: url('Assets/webfonts_Distro-Bev/Distro-Bev.ttf.woff') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .hub-container {
+            max-width: 1500px;
+            margin: 20px auto;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: white;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+        .logo-container img {
+            max-width: 100px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .hub-title {
+            font-size: 5rem;
+            color: black;
+            margin-bottom: 20px;
+            font-family: 'DistroBev', Arial, sans-serif;
+        }
+
+        .hub-description {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .hub-card {
+            border: 2px dashed #4caf50;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background: #ffffff;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .hub-card:hover {
+            transform: scale(1.05);
+            background-color: #f0f8ff;
+        }
+
+        .hub-card img {
+            height: 130px;
+            margin-bottom: 10px;
+        }
+
+        .hub-card-title {
+            font-size: 1.2rem;
+            color: #2ecc71;
+            margin-bottom: 10px;
+        }
+
+        .hub-card-text {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .importance-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .importance-section h2 {
+            color: #2ecc71;
+            margin-bottom: 15px;
+        }
+
+        .importance-section p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .call-to-action {
+            margin: 20px 0;
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .stats-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #fff3e0;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .stats-section h2 {
+            color: #f57c00;
+            margin-bottom: 15px;
+        }
+
+        .stats-section p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        ::-webkit-scrollbar {
+            width: 20px;
+        }
+
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2ecc71;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b30000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hub-container">
+        <div class="hub-container">
+            <div class="logo-container">
+                <img src="Assets/logo.png" alt="Bin It Right Logo">
+            </div>
+
+            <h1 class="hub-title">Bin It Right</h1>
+            <p class="hub-description">Learn about the importance of waste segregation and explore fun activities to
+                make a
+                difference!</p>
+
+            <div class="importance-section">
+                <h2>Why is Waste Segregation Important?</h2>
+                <p>Proper waste segregation helps reduce the amount of waste that ends up in landfills, thereby
+                    minimizing
+                    environmental pollution and conserving natural resources. By separating waste into recyclables,
+                    compostables, and trash, we can make recycling more effective and reduce greenhouse gas emissions
+                    caused by
+                    improper disposal.</p>
+                <p>When we segregate waste, we also support the recycling industry, decrease the strain on waste
+                    management
+                    systems, and help create a cleaner, healthier environment for future generations. It’s a small step
+                    that
+                    makes a big difference!</p>
+
+                <p>Our goal is to provide an engaging platform where users can learn about proper waste management
+                    practices through
+                    interactive games, fun activities, and informative content. We believe that small actions can lead
+                    to big
+                    changes, and we’re here to guide you every step of the way!</p>
+            </div>
+
+            <div class="call-to-action">
+                Start your journey towards better waste segregation. Explore our website to play games, learn fun facts,
+                and
+                discover creative ways to make a difference!
+            </div>
+
+
+            <div class="hub-grid">
+                <!-- Card 1: Waste Sorting Game -->
+                <div class="hub-card">
+                    <img src="Assets/game.png" alt="Game Icon">
+                    <h5 class="hub-card-title">Play the Sorting Game</h5>
+                    <p class="hub-card-text">Test your skills and learn how to sort waste correctly with our interactive
+                        game.</p>
+                    <a href="level1.html" class="btn btn-success">Play Now</a>
+                </div>
+
+                <!-- Card 2: DIY Ideas -->
+                <div class="hub-card">
+                    <img src="Assets/diy.png" alt="DIY Icon">
+                    <h5 class="hub-card-title">DIY Ideas</h5>
+                    <p class="hub-card-text">Get creative with waste materials and make something useful and fun!</p>
+                    <a href="diy.html" class="btn btn-success">Explore DIY</a>
+                </div>
+
+                <!-- Card 3: Fun Facts -->
+                <div class="hub-card">
+                    <img src="Assets/funfact.png" alt="Fun Facts Icon">
+                    <h5 class="hub-card-title">Fun Facts</h5>
+                    <p class="hub-card-text">Discover interesting facts about waste management and recycling.</p>
+                    <a href="funfact.html" class="btn btn-success">Learn More</a>
+                </div>
+
+                <!-- Card 4: Comics -->
+                <div class="hub-card">
+                    <img src="Assets/comic.png" alt="Comic Icon">
+                    <h5 class="hub-card-title">Comic Zone</h5>
+                    <p class="hub-card-text">Enjoy engaging comics about waste management and environmental awareness.
+                    </p>
+                    <a href="comic.html" class="btn btn-success">Read Comics</a>
+                </div>
+
+            </div>
+
+            <div class="stats-section">
+                <h2>The Impact of Improper Waste Segregation</h2>
+                <div class="stats-content" style="display: flex; gap: 20px; align-items: flex-start;">
+                    <div class="stats-text" style="flex: 1;">
+                        <p>Here are some alarming statistics:</p>
+                        <ul>
+                            <li>Over 91% of plastic waste is not recycled, ending up in landfills or oceans.</li>
+                            <li>Improper waste segregation contributes to 20% of global methane emissions, accelerating
+                                climate
+                                change.</li>
+                            <li>An average family generates about 2,000 pounds of waste annually, much of which could be
+                                composted
+                                or recycled.</li>
+                            <li>Landfills are rapidly filling up, with some regions expected to run out of landfill
+                                space within the
+                                next decade.</li>
+                        </ul>
+                    </div>
+                    <div class="stats-graph" style="flex: 1; text-align: center;">
+                        <img src="Assets/stats.png" alt="Stats Graph"
+                            style="max-width: 100%; height: auto; border-radius: 8px;">
+                    </div>
+                </div>
+                <p>By segregating waste correctly, we can reduce pollution, conserve resources, and mitigate climate
+                    change.</p>
+            </div>
+
+        </div>
+
+</body>
+
+</html>

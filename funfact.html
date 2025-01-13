@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Facts About Waste Segregation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/jpg" href="Assets/logo.png" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('Assets/bg6.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
+        }
+
+        @font-face {
+            font-family: 'DistroBev';
+            src: url('Assets/webfonts_Distro-Bev/Distro-Bev.ttf.woff') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 30px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            font-size: 3rem;
+            text-align: center;
+            color: #214e2c;
+            margin-bottom: 20px;
+            font-family: 'DistroBev';
+        }
+
+        .fun-fact {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            color: white;
+            background-color: #28a745;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .pagination a:hover {
+            background-color: #218838;
+        }
+
+        .back-btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-btn a {
+            text-decoration: none;
+            color: white;
+            background-color: #1b2c1e;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .back-btn a:hover {
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">Fun Facts About Waste!</h1>
+
+        <div id="facts-container">
+            <!-- Facts will be loaded dynamically -->
+        </div>
+
+        <div class="pagination">
+            <a href="#" id="prev-btn">Previous</a>
+            <a href="#" id="next-btn">Next</a>
+        </div>
+
+        <div class="back-btn">
+            <a href="index.html">Back to Main Hub</a>
+        </div>
+    </div>
+
+    <script>
+        // Array of Fun Facts
+        const funFacts = [
+            "Recycling one aluminum can saves enough energy to power a TV for three hours.",
+            "Glass can be recycled endlessly without losing quality.",
+            "Composting organic waste can reduce trash sent to landfills by up to 30%.",
+            "Only 9% of plastic ever produced has been recycled.",
+            "Recycling one ton of paper can save 17 trees, 7,000 gallons of water, and 4,000 kilowatts of energy.",
+            "Plastic bags can take up to 1,000 years to decompose.",
+            "Food waste accounts for approximately 24% of all municipal solid waste in landfills.",
+            "Metal recycling reduces greenhouse gas emissions by more than 60%.",
+            "Electronic waste contains valuable materials such as gold and silver that can be reused.",
+            "Over 91% of plastic waste has never been recycled.",
+            "Recycling 1 ton of glass can save over 1,300 pounds of sand.",
+            "Organic waste in landfills produces methane, a greenhouse gas 25 times stronger than CO2.",
+            "Each ton of recycled paper can save 380 gallons of oil.",
+            "Producing new plastic from recycled materials uses up to 66% less energy.",
+            "Recycling cardboard takes 75% less energy than producing it from raw materials.",
+            "Every minute, one garbage truck of plastic is dumped into our oceans.",
+            "Paper can be recycled up to seven times before its fibers become too weak.",
+            "Recycling steel saves enough energy to power 18 million homes for a year.",
+            "Aluminum cans can be recycled and back on store shelves within 60 days.",
+            "Americans throw away enough food annually to feed 2 billion people.",
+            "One-third of all food produced globally is wasted each year.",
+            "Textile recycling can save up to 20,000 liters of water per kilogram of clothes.",
+            "Producing paper from recycled materials reduces water pollution by 35%.",
+            "Nearly 13 million tons of textiles are trashed annually in the U.S.",
+            "Plastic straws are among the top 10 items found in beach cleanups.",
+            "Recycling one glass bottle saves enough energy to light a 100-watt bulb for four hours.",
+            "The average person generates 4.4 pounds of trash per day.",
+            "Recycling reduces the need for extracting, refining, and processing raw materials.",
+            "By 2050, there will be more plastic in the ocean than fish (by weight).",
+            "Segregating waste correctly helps ensure its proper disposal and recycling."
+        ];
+
+        const colors = ["#415D43", "#111D13", "#709775", "#8FB996", "#A1CCA5"];
+
+        const factsPerPage = 10;
+        let currentPage = 1;
+
+        function displayFacts(page) {
+            const startIndex = (page - 1) * factsPerPage;
+            const endIndex = startIndex + factsPerPage;
+            const factsToShow = funFacts.slice(startIndex, endIndex);
+
+            const factsContainer = document.getElementById("facts-container");
+            factsContainer.innerHTML = "";
+
+            factsToShow.forEach((fact) => {
+                const factElement = document.createElement("div");
+                factElement.className = "fun-fact";
+
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                factElement.style.backgroundColor = randomColor;
+
+                factElement.textContent = fact;
+                factsContainer.appendChild(factElement);
+            });
+        }
+
+        document.getElementById("prev-btn").addEventListener("click", (e) => {
+            e.preventDefault();
+            if (currentPage > 1) {
+                currentPage--;
+                displayFacts(currentPage);
+            }
+        });
+
+        document.getElementById("next-btn").addEventListener("click", (e) => {
+            e.preventDefault();
+            if (currentPage < Math.ceil(funFacts.length / factsPerPage)) {
+                currentPage++;
+                displayFacts(currentPage);
+            }
+        });
+
+        displayFacts(currentPage);
+    </script>
+</body>
+
+</html>
